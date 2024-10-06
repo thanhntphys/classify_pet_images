@@ -61,6 +61,26 @@ def print_results(results_dic, results_stats_dic, model,
                               False doesn't print anything(default) (bool) 
     Returns:
            None - simply printing results.
-    """    
-    None
+    """
+    print("Using the {} CNN model architecture".format(model))
+    print("Number of Images: {}".format(results_stats_dic["n_images"]))
+    print("Number of Dog Images: {}".format(results_stats_dic["n_dogs_img"]))
+    print("Number of \"Not-a\" Images: {}".format(results_stats_dic["n_notdogs_img"]))
+
+    print("{}% Correct Dog".format(results_stats_dic["pct_correct_dogs"]))
+    print("{}% Correct Breed".format(results_stats_dic["pct_correct_breed"]))
+    print("{}% Correct \"Not-a\" Dog".format(results_stats_dic["pct_correct_notdogs"]))
+    print("{}% Match".format(results_stats_dic["pct_match"]))
+
+    if print_incorrect_dogs:
+        print("Misclassified Dogs")
+        for image, values in results_dic.items():
+            if (int(values[3]) + int(values[4])) == 1:
+                print("image: {}, classifier label: {}".format(image, values[1]))
+
+    if print_incorrect_breed:
+        print("Misclassified Breed's of Dog")
+        for image, values in results_dic.items():
+            if (int(values[3]) + int(values[4])) == 2 and values[2] == 0:
+                print("image: {}, classifier label: {}".format(image, values[1]))
                 
